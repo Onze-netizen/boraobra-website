@@ -1,62 +1,823 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bora Obra – Reforma simples como pedir um carro</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bora Obra – Reformas simples, seguras e sem burocracia</title>
+  <meta name="description" content="Bora Obra conecta você a profissionais confiáveis para reformas e serviços, com segurança, curadoria e pagamento protegido." />
 
-    <meta name="description" content="Bora Obra conecta você a profissionais confiáveis para reformas com segurança, curadoria e pagamento protegido." />
+  <!-- Fonte Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #183860;
-            --accent: #F2B705;
-            --bg: #0f213a;
-            --text: #f5f5f5;
-        }
+  <style>
+    :root {
+      --primary: #183860;
+      --primary-dark: #10233c;
+      --accent: #F2B705;
+      --accent-dark: #d79c02;
+      --bg: #0f172a;
+      --card-bg: #111827;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2937;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --max-width: 1120px;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            padding: 40px;
-        }
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        p {
-            font-size: 18px;
-            opacity: .85;
-            margin-bottom: 30px;
-        }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        a.botao {
-            display: inline-block;
-            background: var(--accent);
-            padding: 12px 20px;
-            border-radius: 6px;
-            color: #000;
-            font-weight: bold;
-            text-decoration: none;
-        }
-    </style>
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 0%, #fef9c3 0, #F2B705 40%, #b45309 90%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      font-size: 0.9rem;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.35), 0 10px 25px rgba(0, 0, 0, 0.55);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 0.2rem 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), #fde68a);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      color: #111827;
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--accent-dark), #f59e0b);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 36px rgba(245, 158, 11, 0.42);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(248, 250, 252, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    /* HERO */
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 3.5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.16rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.12);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.25rem, 4vw, 3rem);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: #facc15;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-note b {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06) 0, rgba(15, 23, 42, 0.98) 48%);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.4rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-main {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero-card-list {
+      list-style: none;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .hero-badge {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      margin-top: 0.34rem;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 2.4rem 0;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .section-header {
+      margin-bottom: 1.8rem;
+      max-width: 36rem;
+    }
+
+    .section-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 1rem;
+      min-height: 140px;
+    }
+
+    .card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      font-size: 0.86rem;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.78rem;
+      margin-bottom: 0.3rem;
+      color: var(--text-muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    .two-cols {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .bullet-list {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      list-style: none;
+    }
+
+    .bullet-list li {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .bullet-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 0.45rem;
+      background: #38bdf8;
+    }
+
+    .audience-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .audience-card ul {
+      padding-left: 1.1rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .audience-card li {
+      margin-bottom: 0.25rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.9rem;
+      font-size: 0.88rem;
+    }
+
+    .faq-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 0.8rem 0.9rem;
+    }
+
+    .faq-item h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .faq-item p {
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 1.4rem 0 1.6rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .badge-marketplace {
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 960px) {
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .two-cols {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-3,
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 2rem;
+      }
+
+      .hero-card {
+        margin-top: 0.4rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Bora Obra</h1>
-    <p>Reformar sua casa precisa ser simples como pedir um carro.</p>
+  <div class="page">
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <a href="#top" class="logo">
+            <span class="logo-mark">BO</span>
+            <span>Bora Obra</span>
+          </a>
 
-    <a class="botao" href="https://app.boraobra.com">
-        Ir para o App
-    </a>
+          <div class="nav-links">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#faq">Perguntas</a>
+          </div>
+
+          <div class="nav-cta">
+            <a class="btn btn-ghost" href="#como-funciona">Ver detalhes</a>
+            <a class="btn btn-primary" href="https://app.boraobra.com" target="_blank" rel="noopener">
+              Ir para o app
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span>🚀 Reformas sem novela</span>
+            </div>
+            <h1 class="hero-title">
+              Reformar sua casa pode ser tão simples quanto <span>pedir um carro</span>.
+            </h1>
+            <p class="hero-subtitle">
+              O Bora Obra conecta você a profissionais avaliados para pintura e serviços gerais,
+              com orçamento estimado antes de fechar, pagamento protegido e foco total em segurança.
+            </p>
+
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="https://app.boraobra.com" target="_blank" rel="noopener">
+                Começar agora no app
+              </a>
+              <a class="btn btn-ghost" href="#como-funciona">
+                Entender como funciona
+              </a>
+            </div>
+
+            <p class="hero-note">
+              <b>Comece pelo básico:</b> teste com um serviço pequeno e veja como é simples contratar
+              um profissional de forma organizada, segura e sem improviso.
+            </p>
+          </div>
+
+          <aside class="hero-card">
+            <p class="hero-card-title">Visão rápida</p>
+            <p class="hero-card-main">
+              Um app pensado para quem quer resolver uma obra sem virar refém da bagunça.
+            </p>
+            <ul class="hero-card-list">
+              <li>
+                <span class="hero-badge"></span>
+                <span>Profissionais com perfil verificado e histórico de atendimento.</span>
+              </li>
+              <li>
+                <span class="hero-badge"></span>
+                <span>Check-in no local do serviço e liberação de pagamento somente após confirmação.</span>
+              </li>
+              <li>
+                <span class="hero-badge"></span>
+                <span>Orçamentos claros, por pacote, para evitar surpresas no final.</span>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- POR QUE USAR -->
+      <section id="beneficios">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-kicker">Por que usar o Bora Obra?</p>
+            <h2 class="section-title">Segurança, curadoria e menos dor de cabeça.</h2>
+            <p class="section-subtitle">
+              O foco é fazer o básico muito bem-feito: quem vai até sua casa, o que vai ser feito,
+              quanto custa e como o dinheiro é liberado. Sem promessas mágicas.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Segurança em primeiro lugar</h3>
+              <p>
+                Cadastro com verificação de identidade, check-in na obra e registro de cada
+                atendimento para reduzir riscos e improvisos.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Profissionais selecionados</h3>
+              <p>
+                Começamos com pouca base, mas com critério: histórico, avaliações e especialidade
+                por categoria de serviço.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Orçamento claro antes de contratar</h3>
+              <p>
+                Usamos pacotes e critérios técnicos (área, tipo de serviço, materiais) para gerar um
+                valor estimado mais honesto desde o início.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA -->
+      <section id="como-funciona">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-kicker">Passo a passo</p>
+            <h2 class="section-title">Como o Bora Obra funciona na prática.</h2>
+            <p class="section-subtitle">
+              A ideia é não complicar: poucos passos, informações essenciais e transparência na
+              contratação.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="card">
+              <div class="step-number">1</div>
+              <h3>Você diz o que precisa</h3>
+              <p>
+                Escolha a categoria (ex.: pintura) e responda poucas perguntas técnicas para
+                montar o pedido.
+              </p>
+            </div>
+            <div class="card">
+              <div class="step-number">2</div>
+              <h3>Geramos um orçamento estimado</h3>
+              <p>
+                Com base nos dados (área, tipo de ambiente, materiais), o app calcula um valor
+                estimado de forma padronizada.
+              </p>
+            </div>
+            <div class="card">
+              <div class="step-number">3</div>
+              <h3>Você escolhe o profissional</h3>
+              <p>
+                Veja disponibilidade, avaliações e detalhes do perfil antes de confirmar a
+                contratação pelo app.
+              </p>
+            </div>
+            <div class="card">
+              <div class="step-number">4</div>
+              <h3>Acompanha e finaliza pelo app</h3>
+              <p>
+                O profissional faz check-in no local, o serviço é concluído e só então o
+                pagamento é liberado automaticamente.
+              </p>
+            </div>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Sem combinar por fora</span>
+            <span class="pill">Sem pagar tudo adiantado</span>
+            <span class="pill">Registro de tudo dentro do app</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEGURANÇA -->
+      <section id="seguranca">
+        <div class="container two-cols">
+          <div>
+            <div class="section-header">
+              <p class="section-kicker">Segurança</p>
+              <h2 class="section-title">Um app pensado para reduzir riscos, não para maquiar problemas.</h2>
+              <p class="section-subtitle">
+                Segurança não é detalhe. Está no centro do fluxo: desde o cadastro até a liberação
+                do pagamento após o serviço.
+              </p>
+            </div>
+
+            <ul class="bullet-list">
+              <li>
+                <span class="bullet-dot"></span>
+                <span>
+                  <b>Identidade verificada:</b> profissionais com documentos e selfie validados
+                  antes de começarem a atender pelo app.
+                </span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>
+                  <b>Check-in obrigatório:</b> registro da presença do profissional por geolocalização
+                  ou QR Code no local do serviço.
+                </span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>
+                  <b>Pagamento com proteção:</b> o valor fica retido e só é liberado após a confirmação
+                  do cliente ou encerramento do fluxo.
+                </span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>
+                  <b>Chat interno:</b> conversa centralizada, sem exposição de dados pessoais, para
+                  reduzir tentativas de “fechar por fora”.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="card audience-card">
+              <h3>Sou cliente</h3>
+              <ul>
+                <li>Quero alguém de confiança para um serviço específico.</li>
+                <li>Prefiro pagar de forma organizada, sem combinar valores soltos.</li>
+                <li>Quero conseguir avaliar o atendimento e ter histórico.</li>
+              </ul>
+            </div>
+
+            <div class="card audience-card" style="margin-top: 0.9rem;">
+              <h3>Sou profissional</h3>
+              <ul>
+                <li>Quero receber chamados pelo app, com serviço definido.</li>
+                <li>Quero histórico dos atendimentos para construir reputação.</li>
+                <li>Quero receber de forma transparente e organizada.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-kicker">Perguntas frequentes</p>
+            <h2 class="section-title">Antes de testar, algumas respostas rápidas.</h2>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <h3>O Bora Obra é uma empreiteira?</h3>
+              <p>
+                Não. O Bora Obra é um marketplace que conecta clientes a profissionais
+                independentes. Cuidamos da curadoria, da organização do fluxo e da proteção
+                do pagamento dentro do app.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Posso combinar pagamento direto com o profissional?</h3>
+              <p>
+                A proposta do app é justamente evitar isso. Ao manter tudo dentro do Bora Obra,
+                conseguimos registrar o serviço, proteger o pagamento e reduzir conflitos.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Quais tipos de serviço vão estar disponíveis primeiro?</h3>
+              <p>
+                Começamos por pintura e serviços gerais, avançando depois para hidráulica,
+                elétrica e alvenaria, sempre com critérios técnicos de precificação.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>O app já está aberto para todo o Brasil?</h3>
+              <p>
+                Estamos começando por regiões específicas para garantir qualidade, aprender
+                rápido e ajustar o modelo antes de expandir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-row">
+        <div>
+          <span class="badge-marketplace">Marketplace de serviços</span>
+        </div>
+        <div class="footer-links">
+          <span>Contato: <a href="mailto:support@boraobra.com">support@boraobra.com</a></span>
+          <span>© <span id="year"></span> Bora Obra. Todos os direitos reservados.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Ano atual no rodapé
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
