@@ -3,368 +3,477 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bora Obra – Reformas Tech</title>
+  <title>Bora Obra – Reformas simples, seguras e sem burocracia</title>
+  <meta name="description" content="Bora Obra conecta você a profissionais confiáveis para reformas e serviços, com segurança, curadoria e pagamento protegido." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
+    /* TEMA FLUTTER APLICADO */
     :root {
-      /* Mapeamento do Tema Flutter */
+      /* Cores principais do Flutter */
       --primary: #183860;       /* primaryColor */
       --accent: #6B5CFF;        /* secondaryHeaderColor */
       --bg: #ffffff;            /* scaffoldBackgroundColor */
-      --surface: #f8fafc;       /* Cor para cards sutis */
       
-      /* Cores derivadas */
-      --text-main: #1e293b;     /* Texto escuro para fundo branco */
-      --text-muted: #64748b;    /* Cinza para subtítulos */
-      --text-inverse: #ffffff;  /* Texto sobre fundo escuro */
+      /* Cores de suporte para o tema claro */
+      --card-bg: #ffffff;
+      --text: #1e293b;          /* Texto escuro (Slate 800) */
+      --text-muted: #64748b;    /* Texto cinza (Slate 500) */
+      --border-soft: #e2e8f0;   /* Bordas suaves */
       
-      --border-color: #e2e8f0;  /* Input border radius color (suave) */
-      --radius-lg: 24px;
-      --radius-md: 12px;        /* BorderRadius.circular(12) */
-      --shadow-card: 0 10px 30px -10px rgba(24, 56, 96, 0.15);
-      --max-width: 1160px;
+      /* Variáveis de UI */
+      --radius-lg: 16px;
+      --radius-md: 12px;        /* Conforme BorderRadius.circular(12) */
+      --shadow-soft: 0 10px 30px -10px rgba(24, 56, 96, 0.15);
+      --max-width: 1120px;
     }
     
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     
     body {
-      font-family: "Inter", sans-serif; /* textTheme GoogleFonts.inter */
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: var(--bg);
-      color: var(--text-main);
+      /* Grid sutil para não ficar branco chapado demais (opcional, pode remover) */
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      /* Grid sutil estilo papel milimetrado (Blueprint clean) */
-      background-image: 
-        linear-gradient(rgba(24, 56, 96, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24, 56, 96, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
     }
+    
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    .page { min-height: 100vh; display: flex; flex-direction: column; }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
 
-    /* GLOWS (Agora adaptados para fundo branco - mais sutis) */
-    .ambient-glow {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      z-index: -1;
-      opacity: 0.4;
-    }
-    .glow-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #e0e7ff 0%, transparent 70%); } /* Azul bem claro */
-    .glow-2 { bottom: 10%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, #f3e8ff 0%, transparent 70%); } /* Roxo bem claro */
-
-    a { text-decoration: none; transition: 0.3s; color: inherit; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
-
-    /* APP BAR (HEADER) */
+    /* HEADER (AppBarTheme: Azul Marinho) */
     header {
-      background-color: var(--primary); /* AppBarTheme backgroundColor */
-      color: var(--text-inverse);       /* iconTheme color: white */
-      padding: 1rem 0;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 40;
+      background: rgba(24, 56, 96, 0.95); /* --primary com leve transparência */
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff; /* Texto branco no header */
       box-shadow: 0 4px 20px rgba(24, 56, 96, 0.15);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+      gap: 1.5rem;
+    }
     
-    .logo { 
-      display: flex; align-items: center; gap: 0.8rem; 
-      font-weight: 700; font-size: 1.1rem; 
-      color: var(--text-inverse);
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
     }
     .logo-mark {
-      width: 36px; height: 36px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--accent); /* Roxo */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 0.8rem;
+      box-shadow: 0 0 15px rgba(107, 92, 255, 0.4);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 1.2rem; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .nav-links a:hover { color: #ffffff; }
+    
+    /* Efeito de underline nos links */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0%; height: 2px;
+      border-radius: 999px;
       background: var(--accent);
-      border-radius: 8px; /* BorderRadius um pouco menor para ícone */
-      display: flex; align-items: center; justify-content: center;
-      color: #fff;
-      font-weight: 800;
+      transition: width 0.25s ease-out;
     }
+    .nav-links a:hover::after { width: 100%; }
 
-    .nav-links { display: flex; gap: 2rem; font-size: 0.95rem; }
-    .nav-links a { color: rgba(255,255,255,0.8); }
-    .nav-links a:hover { color: #fff; }
-
+    .nav-cta { display: flex; align-items: center; gap: 0.8rem; }
+    
+    /* BUTTONS */
     .btn {
-      padding: 0.7rem 1.5rem;
-      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.86rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid transparent;
       cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
     }
-    /* Botão primário usando a SecondaryHeaderColor (Roxo) para destaque */
     .btn-primary {
       background: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(107, 92, 255, 0.4);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(107, 92, 255, 0.3);
     }
-    .btn-primary:hover { transform: translateY(-2px); background: #5a4ce6; }
-    
-    .btn-ghost-light { background: rgba(255,255,255,0.1); color: #fff; }
-    .btn-ghost-light:hover { background: rgba(255,255,255,0.2); }
+    .btn-primary:hover {
+      background: #5a4ce6; /* Roxo um pouco mais escuro */
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(107, 92, 255, 0.4);
+    }
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
 
-    .btn-outline-dark { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
-    .btn-outline-dark:hover { background: var(--primary); color: white; }
+    /* Botão Ghost "Escuro" para usar no fundo branco do corpo da página */
+    .hero-cta .btn-ghost {
+      border-color: var(--border-soft);
+      color: var(--text-muted);
+      background: transparent;
+    }
+    .hero-cta .btn-ghost:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
 
     /* HERO SECTION */
-    .hero { padding: 5rem 0; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
-    
-    .hero-tag {
-      display: inline-block; padding: 0.4rem 1rem;
-      background: #eff6ff; color: var(--primary);
-      border-radius: 99px; font-size: 0.85rem; font-weight: 600;
-      margin-bottom: 1.5rem;
-      border: 1px solid #dbeafe;
+    main { flex: 1; }
+    .hero { padding: 4rem 0 3.5rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 3rem;
+      align-items: center;
     }
-
+    
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 999px;
+      background: #eff6ff; /* Azul bem claro */
+      color: var(--primary);
+      border: 1px solid #dbeafe;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
     .hero-title {
-      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
       line-height: 1.1;
       font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
       color: var(--primary);
-      margin-bottom: 1.5rem;
     }
     .hero-title span { color: var(--accent); }
     
-    .hero-subtitle {
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      margin-bottom: 2rem;
-      max-width: 90%;
-    }
+    .hero-subtitle { font-size: 1.02rem; color: var(--text-muted); max-width: 34rem; margin-bottom: 1.8rem; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.8rem; }
+    .hero-note { font-size: 0.82rem; color: var(--text-muted); }
+    .hero-note b { color: var(--primary); font-weight: 600; }
 
-    /* MOCKUP ESTILO APP */
-    .phone-mockup {
-      background: #fff;
-      border-radius: 30px;
-      box-shadow: 0 30px 60px -15px rgba(24, 56, 96, 0.25);
-      border: 8px solid var(--primary); /* Borda escura imitando celular */
-      padding: 1.5rem;
+    /* HERO CARD (Lateral) */
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 1.6rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
       overflow: hidden;
     }
-    /* Barra de status fake */
-    .phone-mockup::before {
-      content: ''; display: block; width: 40%; height: 20px; 
-      background: var(--primary); margin: -8px auto 1rem; 
-      border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    /* Faixa decorativa no topo do card */
+    .hero-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
     }
-
-    .app-card {
-      background: #f8fafc;
-      border-radius: var(--radius-md); /* Input Decoration Theme Radius */
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border-color);
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .icon-circle {
-      width: 40px; height: 40px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    /* SEÇÕES */
-    section { padding: 5rem 0; }
-    .section-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
-    .section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
-
-    /* CARDS DE BENEFÍCIOS */
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
     
-    .feature-card {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      transition: 0.3s;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    .hero-card-title { font-weight: 600; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .hero-card-main { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 1.5rem; }
+    
+    .hero-card-list { list-style: none; }
+    .hero-card-list li { display: flex; gap: 0.8rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); align-items: flex-start; }
+    .hero-badge {
+      width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-top: 6px; flex-shrink: 0;
     }
-    .feature-card:hover {
+
+    /* CARDS GERAIS */
+    .card, .faq-item, .audience-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .card:hover, .faq-item:hover, .audience-card:hover {
       transform: translateY(-5px);
-      box-shadow: var(--shadow-card);
+      box-shadow: var(--shadow-soft);
       border-color: var(--accent);
     }
-    .feature-icon {
-      width: 50px; height: 50px;
-      background: #f3e8ff; /* Roxo bem claro */
-      color: var(--accent);
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    .feature-icon svg { width: 24px; height: 24px; }
-    .feature-card h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 0.5rem; }
-    .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+    .card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* INPUT VISUAL (Demonstrando o InputDecorationTheme) */
-    .input-demo {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md); /* 12px do tema */
-      padding: 1rem;
-      display: flex; justify-content: space-between;
-      color: var(--text-muted);
-      margin-top: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    /* SEÇÕES GERAIS */
+    section { padding: 3.5rem 0; border-top: 1px solid var(--border-soft); }
+    .section-header { margin-bottom: 2.2rem; max-width: 38rem; }
+    .section-kicker { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+    .section-subtitle { font-size: 1rem; color: var(--text-muted); }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4rem; }
+    .two-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+
+    /* STEPS NUMBERS */
+    .step-number {
+      font-size: 2.5rem; font-weight: 800; color: rgba(24, 56, 96, 0.1);
+      line-height: 1; margin-bottom: 0.5rem;
     }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.2rem; }
+    .pill { 
+      font-size: 0.78rem; padding: 0.35rem 0.9rem; 
+      border-radius: 999px; 
+      background: #f1f5f9; 
+      color: var(--primary); 
+      font-weight: 500;
+    }
+
+    /* LISTAS */
+    .bullet-list { list-style: none; }
+    .bullet-list li { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1rem; color: var(--text-muted); }
+    .bullet-list b { color: var(--primary); }
+    .bullet-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-top: 8px; }
+
+    .audience-card ul { padding-left: 1.2rem; color: var(--text-muted); font-size: 0.9rem; }
+    .audience-card li { margin-bottom: 0.5rem; }
+
+    /* FAQ */
+    .faq-list { display: grid; gap: 1rem; }
+    .faq-item h3 { font-size: 1rem; color: var(--primary); margin-bottom: 0.5rem; }
 
     /* FOOTER */
     footer {
-      background: var(--primary);
-      color: #fff;
+      background-color: var(--primary);
+      color: #ffffff;
+      border-top: none;
       padding: 3rem 0;
-      text-align: center;
+      font-size: 0.9rem;
     }
-    .footer-text { opacity: 0.7; font-size: 0.9rem; }
+    footer .badge-marketplace {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .footer-links { color: rgba(255,255,255,0.7); }
+    .footer-links a:hover { color: #fff; text-decoration: underline; }
+    .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
 
-    @media (max-width: 768px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    /* Responsivo */
+    @media (max-width: 960px) {
+      .hero-grid, .two-cols, .grid-3, .steps { grid-template-columns: 1fr; }
+      .hero-card { order: -1; }
       .nav-links { display: none; }
-      .hero-subtitle { margin-inline: auto; }
-      .input-demo { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-cta { flex-direction: column; width: 100%; }
+      .nav-cta .btn { width: 100%; justify-content: center; }
+      .hero { padding: 2.5rem 0 3rem; }
     }
   </style>
 </head>
 <body>
-
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-
   <div class="page">
     <header>
-      <div class="container nav">
-        <a href="#" class="logo">
-          <div class="logo-mark">BO</div>
-          <span>Bora Obra</span>
-        </a>
-        <nav class="nav-links">
-          <a href="#">Serviços</a>
-          <a href="#">Profissionais</a>
-          <a href="#">Ajuda</a>
+      <div class="container">
+        <nav class="nav">
+          <a href="#top" class="logo">
+            <span class="logo-mark">BO</span>
+            <span>Bora Obra</span>
+          </a>
+          <div class="nav-links">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#faq">Perguntas</a>
+          </div>
+          <div class="nav-cta">
+            <a class="btn btn-ghost" href="#como-funciona">Ver detalhes</a>
+            <a class="btn btn-primary" href="https://app.boraobra.com" target="_blank" rel="noopener">
+              Ir para o app
+            </a>
+          </div>
         </nav>
-        <a href="#" class="btn btn-ghost-light">Entrar</a>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
+    <main id="top">
+      <section class="hero" data-aos="fade-up">
         <div class="container hero-grid">
-          <div data-aos="fade-right">
-            <span class="hero-tag">Novo App Disponível</span>
+          <div data-aos="fade-right" data-aos-delay="100">
+            <div class="eyebrow">Reformas sem novela</div>
             <h1 class="hero-title">
-              Reforma inteligente,<br>
-              <span>sem dor de cabeça.</span>
+              Reformar sua casa pode ser tão simples quanto <span>pedir um carro</span>.
             </h1>
             <p class="hero-subtitle">
-              Conectamos você aos melhores profissionais com a segurança que sua casa merece. Orçamentos padronizados e pagamento protegido.
+              O Bora Obra conecta você a profissionais avaliados para pintura e serviços gerais,
+              com orçamento estimado antes de fechar, pagamento protegido e foco total em segurança.
             </p>
-            
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <a href="#" class="btn btn-primary">
-                Baixar App
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="https://app.boraobra.com" target="_blank" rel="noopener">
+                Começar agora no app
               </a>
-              <a href="#" class="btn btn-outline-dark">Sou Profissional</a>
+              <a class="btn btn-ghost" href="#como-funciona">
+                Entender como funciona
+              </a>
             </div>
-
-            <div class="input-demo">
-              <span>O que você precisa consertar hoje?</span>
-              <svg width="20" height="20" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            </div>
+            <p class="hero-note">
+              <b>Comece pelo básico:</b> teste com um serviço pequeno e veja como é simples contratar
+              um profissional de forma organizada, segura e sem improviso.
+            </p>
           </div>
+          <aside class="hero-card" data-aos="fade-left" data-aos-delay="300">
+            <p class="hero-card-title">Visão rápida</p>
+            <p class="hero-card-main">
+              Um app pensado para quem quer resolver uma obra sem virar refém da bagunça.
+            </p>
+            <ul class="hero-card-list">
+              <li><span class="hero-badge"></span> Profissionais com perfil verificado e histórico de atendimento.</li>
+              <li><span class="hero-badge"></span> Check-in no local do serviço e liberação de pagamento somente após confirmação.</li>
+              <li><span class="hero-badge"></span> Orçamentos claros, por pacote, para evitar surpresas no final.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
 
-          <div class="phone-mockup" data-aos="fade-left">
-             <div style="margin-bottom: 1rem;">
-               <h4 style="color:var(--primary); font-weight:700;">Meus Pedidos</h4>
-             </div>
-             
-             <div class="app-card">
-               <div class="icon-circle" style="background: #dbeafe; color: var(--primary);">
-                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
-               </div>
-               <div>
-                 <div style="font-weight: 600; color: var(--primary);">Pintura Interna</div>
-                 <div style="font-size: 0.8rem; color: var(--text-muted);">Agendado para amanhã</div>
-               </div>
-             </div>
-
-             <div class="app-card" style="border-color: var(--accent); background: #f5f3ff;">
-                <div class="icon-circle" style="background: var(--accent); color: #fff;">
-                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <div>
-                  <div style="font-weight: 600; color: var(--primary);">Eletricista</div>
-                  <div style="font-size: 0.8rem; color: var(--accent); font-weight: 600;">Profissional a caminho</div>
-                </div>
-             </div>
-
-             <div style="margin-top:1.5rem; background: var(--primary); color:white; padding:1rem; border-radius:12px; text-align:center;">
-                Confirmar Pagamento
-             </div>
+      <section id="beneficios" data-aos="fade-up">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-kicker">Por que usar o Bora Obra?</p>
+            <h2 class="section-title">Segurança, curadoria e menos dor de cabeça.</h2>
+            <p class="section-subtitle">
+              O foco é fazer o básico muito bem-feito: quem vai até sua casa, o que vai ser feito,
+              quanto custa e como o dinheiro é liberado. Sem promessas mágicas.
+            </p>
+          </div>
+          <div class="grid-3">
+            <div class="card" data-aos="fade-up" data-aos-delay="0"><h3>Segurança em primeiro lugar</h3><p>Cadastro com verificação de identidade, check-in na obra e registro de cada atendimento.</p></div>
+            <div class="card" data-aos="fade-up" data-aos-delay="150"><h3>Profissionais selecionados</h3><p>Começamos com pouca base, mas com critério: histórico, avaliações e especialidade.</p></div>
+            <div class="card" data-aos="fade-up" data-aos-delay="300"><h3>Orçamento claro antes de contratar</h3><p>Pacotes e critérios técnicos para gerar um valor estimado mais honesto desde o início.</p></div>
           </div>
         </div>
       </section>
 
-      <section style="background: var(--surface);">
+      <section id="como-funciona" data-aos="fade-up">
         <div class="container">
-          <h2 class="section-title">Segurança é a nossa base.</h2>
-          <p class="section-desc">Construímos uma plataforma pensada para eliminar os riscos comuns de obras e pequenas reformas.</p>
-          
-          <div class="grid-3">
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <h3>Profissionais Verificados</h3>
-              <p>Checagem rigorosa de antecedentes e avaliação técnica antes de entrar na plataforma.</p>
+          <div class="section-header">
+            <p class="section-kicker">Passo a passo</p>
+            <h2 class="section-title">Como o Bora Obra funciona na prática.</h2>
+          </div>
+          <div class="steps">
+            <div class="card" data-aos="fade-up" data-aos-delay="0"><div class="step-number">1</div><h3>Você diz o que precisa</h3><p>Escolha a categoria e responda poucas perguntas técnicas.</p></div>
+            <div class="card" data-aos="fade-up" data-aos-delay="150"><div class="step-number">2</div><h3>Geramos um orçamento estimado</h3><p>Com base nos dados, o app calcula um valor padronizado.</p></div>
+            <div class="card" data-aos="fade-up" data-aos-delay="300"><div class="step-number">3</div><h3>Você escolhe o profissional</h3><p>Veja disponibilidade, avaliações e detalhes do perfil.</p></div>
+            <div class="card" data-aos="fade-up" data-aos-delay="450"><div class="step-number">4</div><h3>Acompanha e finaliza pelo app</h3><p>Check-in, serviço concluído e pagamento liberado só depois.</p></div>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Sem combinar por fora</span>
+            <span class="pill">Sem pagar tudo adiantado</span>
+            <span class="pill">Registro de tudo dentro do app</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="seguranca" data-aos="fade-up">
+        <div class="container two-cols">
+          <div data-aos="fade-right">
+            <div class="section-header">
+              <p class="section-kicker">Segurança</p>
+              <h2 class="section-title">Um app pensado para reduzir riscos, não para maquiar problemas.</h2>
             </div>
-            
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-              </div>
-              <h3>Pagamento Seguro</h3>
-              <p>Seu dinheiro fica retido e só é liberado ao profissional após a conclusão e sua aprovação.</p>
-            </div>
-            
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-              <div class="feature-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <h3>Suporte Rápido</h3>
-              <p>Time de atendimento pronto para resolver imprevistos e garantir que a obra não pare.</p>
-            </div>
+            <ul class="bullet-list">
+              <li><span class="bullet-dot"></span> <b>Identidade verificada:</b> documentos e selfie validados.</li>
+              <li><span class="bullet-dot"></span> <b>Check-in obrigatório:</b> geolocalização ou QR Code no local.</li>
+              <li><span class="bullet-dot"></span> <b>Pagamento com proteção:</b> valor retido até confirmação.</li>
+              <li><span class="bullet-dot"></span> <b>Chat interno:</b> sem exposição de dados pessoais.</li>
+            </ul>
+          </div>
+          <div data-aos="fade-left" data-aos-delay="200">
+            <div class="card audience-card"><h3>Sou cliente</h3><ul><li>Quero alguém de confiança.</li><li>Pagar de forma organizada.</li><li>Avaliar e ter histórico.</li></ul></div>
+            <div class="card audience-card" style="margin-top: 1rem;"><h3>Sou profissional</h3><ul><li>Receber chamados claros.</li><li>Construir reputação.</li><li>Receber de forma transparente.</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" data-aos="fade-up">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-kicker">Perguntas frequentes</p>
+            <h2 class="section-title">Antes de testar, algumas respostas rápidas.</h2>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="0"><h3>O Bora Obra é uma empreiteira?</h3><p>Não. É um marketplace que conecta clientes a profissionais independentes com curadoria e proteção de pagamento.</p></div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100"><h3>Posso combinar pagamento direto?</h3><p>A proposta é justamente evitar isso para manter segurança e registro.</p></div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200"><h3>Quais serviços primeiro?</h3><p>Pintura e serviços gerais, depois hidráulica, elétrica e alvenaria.</p></div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300"><h3>Já está em todo Brasil?</h3><p>Começando por regiões específicas para garantir qualidade e aprender rápido.</p></div>
           </div>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="container">
-        <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
-          <span style="opacity: 0.8;">BO</span> Bora Obra
+      <div class="container footer-row">
+        <div><span class="badge-marketplace">Marketplace de serviços</span></div>
+        <div class="footer-links">
+          <span>Contato: <a href="mailto:support@boraobra.com">support@boraobra.com</a></span>
+          <span>© <span id="year"></span> Bora Obra. Todos os direitos reservados.</span>
         </div>
-        <p class="footer-text">
-          &copy; 2024 Bora Obra Tecnologia Ltda.<br>
-          Feito com Flutter Theme Style.
-        </p>
       </div>
     </footer>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 800, once: true });
+    AOS.init({
+      duration: 900,
+      easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)',
+      once: true,
+      offset: 80
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
