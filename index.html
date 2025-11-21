@@ -3,253 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bora Obra – Reformas simples e seguras</title>
-  <meta name="description" content="Bora Obra conecta você a profissionais confiáveis para reformas e serviços." />
+  <title>Bora Obra – Reformas Tech</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
-      --primary: #183860;
-      --accent: #F2B705;
-      --accent-glow: rgba(242, 183, 5, 0.4);
-      --bg-dark: #020617;
-      --card-bg: rgba(30, 41, 59, 0.4);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-soft: rgba(255, 255, 255, 0.08);
+      /* Mapeamento do Tema Flutter */
+      --primary: #183860;       /* primaryColor */
+      --accent: #6B5CFF;        /* secondaryHeaderColor */
+      --bg: #ffffff;            /* scaffoldBackgroundColor */
+      --surface: #f8fafc;       /* Cor para cards sutis */
+      
+      /* Cores derivadas */
+      --text-main: #1e293b;     /* Texto escuro para fundo branco */
+      --text-muted: #64748b;    /* Cinza para subtítulos */
+      --text-inverse: #ffffff;  /* Texto sobre fundo escuro */
+      
+      --border-color: #e2e8f0;  /* Input border radius color (suave) */
       --radius-lg: 24px;
-      --radius-md: 12px;
+      --radius-md: 12px;        /* BorderRadius.circular(12) */
+      --shadow-card: 0 10px 30px -10px rgba(24, 56, 96, 0.15);
       --max-width: 1160px;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     body {
-      font-family: "Inter", sans-serif;
-      background-color: var(--bg-dark);
-      /* TEXTURA DE BLUEPRINT (GRID) */
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      color: var(--text);
+      font-family: "Inter", sans-serif; /* textTheme GoogleFonts.inter */
+      background-color: var(--bg);
+      color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
+      /* Grid sutil estilo papel milimetrado (Blueprint clean) */
+      background-image: 
+        linear-gradient(rgba(24, 56, 96, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 56, 96, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    /* AMBIENT GLOWS (Bolhas de luz no fundo) */
+    /* GLOWS (Agora adaptados para fundo branco - mais sutis) */
     .ambient-glow {
       position: fixed;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-      opacity: 0.2;
-      filter: blur(80px);
-      z-index: -1;
       border-radius: 50%;
-      animation: float 10s infinite ease-in-out;
+      filter: blur(90px);
+      z-index: -1;
+      opacity: 0.4;
     }
-    .glow-1 { top: -10%; left: -10%; background: radial-gradient(circle, #1e40af 0%, transparent 70%); }
-    .glow-2 { bottom: 10%; right: -10%; background: radial-gradient(circle, #854d0e 0%, transparent 70%); animation-delay: 2s; }
-    .glow-3 { top: 40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); opacity: 0.1; }
+    .glow-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #e0e7ff 0%, transparent 70%); } /* Azul bem claro */
+    .glow-2 { bottom: 10%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, #f3e8ff 0%, transparent 70%); } /* Roxo bem claro */
 
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(20px, 30px); }
-    }
+    a { text-decoration: none; transition: 0.3s; color: inherit; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
 
-    a { color: inherit; text-decoration: none; transition: 0.3s; }
-    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 2; }
-
-    /* HEADER */
+    /* APP BAR (HEADER) */
     header {
+      background-color: var(--primary); /* AppBarTheme backgroundColor */
+      color: var(--text-inverse);       /* iconTheme color: white */
+      padding: 1rem 0;
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(12px);
-      background: rgba(2, 6, 23, 0.7);
-      border-bottom: 1px solid var(--border-soft);
+      box-shadow: 0 4px 20px rgba(24, 56, 96, 0.15);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
-    .logo { display: flex; align-items: center; gap: 0.8rem; font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    
+    .logo { 
+      display: flex; align-items: center; gap: 0.8rem; 
+      font-weight: 700; font-size: 1.1rem; 
+      color: var(--text-inverse);
+    }
     .logo-mark {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, #fef9c3, var(--accent));
-      border-radius: 8px;
+      width: 36px; height: 36px;
+      background: var(--accent);
+      border-radius: 8px; /* BorderRadius um pouco menor para ícone */
       display: flex; align-items: center; justify-content: center;
-      color: #020617;
+      color: #fff;
       font-weight: 800;
-      box-shadow: 0 0 15px var(--accent-glow);
     }
-    
-    .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; color: var(--text-muted); }
-    .nav-links a:hover { color: var(--text); }
-    
+
+    .nav-links { display: flex; gap: 2rem; font-size: 0.95rem; }
+    .nav-links a { color: rgba(255,255,255,0.8); }
+    .nav-links a:hover { color: #fff; }
+
     .btn {
-      padding: 0.7rem 1.4rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 99px;
       font-weight: 600;
       font-size: 0.9rem;
       display: inline-flex; align-items: center; gap: 0.5rem;
+      cursor: pointer;
       transition: all 0.3s ease;
+      border: none;
     }
+    /* Botão primário usando a SecondaryHeaderColor (Roxo) para destaque */
     .btn-primary {
       background: var(--accent);
-      color: #020617;
-      box-shadow: 0 4px 20px var(--accent-glow);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(107, 92, 255, 0.4);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); background: #fbbf24; }
-    .btn-ghost { border: 1px solid var(--border-soft); color: var(--text); background: rgba(255,255,255,0.03); }
-    .btn-ghost:hover { border-color: var(--text-muted); background: rgba(255,255,255,0.08); }
+    .btn-primary:hover { transform: translateY(-2px); background: #5a4ce6; }
+    
+    .btn-ghost-light { background: rgba(255,255,255,0.1); color: #fff; }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.2); }
+
+    .btn-outline-dark { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+    .btn-outline-dark:hover { background: var(--primary); color: white; }
 
     /* HERO SECTION */
-    .hero { padding: 5rem 0 4rem; }
-    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+    .hero { padding: 5rem 0; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
     
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 1rem;
-      border-radius: 99px;
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      color: #4ade80;
-      font-size: 0.8rem;
+    .hero-tag {
+      display: inline-block; padding: 0.4rem 1rem;
+      background: #eff6ff; color: var(--primary);
+      border-radius: 99px; font-size: 0.85rem; font-weight: 600;
       margin-bottom: 1.5rem;
+      border: 1px solid #dbeafe;
     }
+
     .hero-title {
       font-size: clamp(2.5rem, 5vw, 3.8rem);
       line-height: 1.1;
       font-weight: 800;
+      color: var(--primary);
       margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #fff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
-    .hero-title span {
-      background: linear-gradient(to right, var(--accent), #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 90%; margin-bottom: 2rem; }
+    .hero-title span { color: var(--accent); }
     
-    /* MOCKUP VISUAL (Forma diferente) */
-    .app-mockup {
-      position: relative;
-      background: linear-gradient(180deg, #1e293b, #0f172a);
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+
+    /* MOCKUP ESTILO APP */
+    .phone-mockup {
+      background: #fff;
       border-radius: 30px;
-      border: 1px solid var(--border-soft);
-      padding: 2rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      /* Efeito de vidro fosco sobreposto */
-    }
-    .app-mockup::before {
-      content: ''; position: absolute; inset: -1px; z-index: -1;
-      border-radius: 31px;
-      background: linear-gradient(45deg, var(--accent), transparent, var(--primary));
-      opacity: 0.3;
-    }
-    
-    .stat-card {
-      background: rgba(2, 6, 23, 0.8);
-      border: 1px solid var(--border-soft);
-      padding: 1rem;
-      border-radius: 12px;
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .stat-icon {
-      width: 40px; height: 40px;
-      background: rgba(242, 183, 5, 0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent);
-    }
-
-    /* CARDS GERAIS COM ESTILO NOVO */
-    section { padding: 5rem 0; border-top: 1px solid var(--border-soft); position: relative; }
-    .section-header { margin-bottom: 3rem; max-width: 600px; }
-    .section-label { color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem; display: block; }
-    
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-
-    .feature-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-soft);
-      padding: 2rem;
-      border-radius: var(--radius-lg);
-      transition: 0.4s ease;
+      box-shadow: 0 30px 60px -15px rgba(24, 56, 96, 0.25);
+      border: 8px solid var(--primary); /* Borda escura imitando celular */
+      padding: 1.5rem;
       position: relative;
       overflow: hidden;
     }
-    /* Efeito de gradiente na borda ao hover */
+    /* Barra de status fake */
+    .phone-mockup::before {
+      content: ''; display: block; width: 40%; height: 20px; 
+      background: var(--primary); margin: -8px auto 1rem; 
+      border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    }
+
+    .app-card {
+      background: #f8fafc;
+      border-radius: var(--radius-md); /* Input Decoration Theme Radius */
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-color);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .icon-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* SEÇÕES */
+    section { padding: 5rem 0; }
+    .section-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
+    .section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
+
+    /* CARDS DE BENEFÍCIOS */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    
+    .feature-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: 0.3s;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
     .feature-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(242, 183, 5, 0.3);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+      box-shadow: var(--shadow-card);
+      border-color: var(--accent);
     }
-    .feature-card h3 { margin: 1rem 0 0.5rem; font-size: 1.2rem; }
-    .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
-    
-    .icon-box {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem;
+    .feature-icon {
+      width: 50px; height: 50px;
+      background: #f3e8ff; /* Roxo bem claro */
       color: var(--accent);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .feature-icon svg { width: 24px; height: 24px; }
+    .feature-card h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* INPUT VISUAL (Demonstrando o InputDecorationTheme) */
+    .input-demo {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); /* 12px do tema */
+      padding: 1rem;
+      display: flex; justify-content: space-between;
+      color: var(--text-muted);
+      margin-top: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    /* STEPS (Com linha conectora) */
-    .step-card {
+    /* FOOTER */
+    footer {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 0;
       text-align: center;
-      padding: 1.5rem;
-      background: transparent;
-      border: 1px dashed var(--border-soft);
-      border-radius: var(--radius-md);
-      transition: 0.3s;
     }
-    .step-card:hover { background: rgba(255,255,255,0.02); border-color: var(--accent); }
-    .step-number {
-      font-size: 3rem; font-weight: 800;
-      color: rgba(255,255,255,0.05);
-      line-height: 1; margin-bottom: -1.5rem; position: relative; z-index: 0;
-    }
-    .step-card h3 { position: relative; z-index: 1; margin-bottom: 0.5rem; }
-    .step-card p { color: var(--text-muted); font-size: 0.9rem; position: relative; z-index: 1; }
+    .footer-text { opacity: 0.7; font-size: 0.9rem; }
 
-    /* FAQ */
-    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .faq-item {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border-soft);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-    }
-    .faq-item h3 { font-size: 1rem; color: #e2e8f0; margin-bottom: 0.5rem; }
-    .faq-item p { font-size: 0.9rem; color: var(--text-muted); }
-
-    footer { padding: 2rem 0; border-top: 1px solid var(--border-soft); color: var(--text-muted); font-size: 0.9rem; text-align: center; }
-
-    /* Ícones SVG Inline */
-    svg { width: 24px; height: 24px; stroke-width: 2; }
-
-    /* Responsividade */
-    @media (max-width: 900px) {
-      .hero-grid, .grid-3, .steps-grid, .faq-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
       .nav-links { display: none; }
-      .hero { text-align: center; padding-top: 3rem; }
-      .hero-grid { gap: 3rem; }
-      .app-mockup { max-width: 400px; margin: 0 auto; }
-      .step-number { margin-bottom: 0.5rem; font-size: 2rem; color: var(--accent); opacity: 0.5; }
+      .hero-subtitle { margin-inline: auto; }
+      .input-demo { display: none; }
     }
   </style>
 </head>
@@ -257,21 +239,20 @@
 
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
-  <div class="ambient-glow glow-3"></div>
 
   <div class="page">
     <header>
       <div class="container nav">
         <a href="#" class="logo">
-          <span class="logo-mark">BO</span>
+          <div class="logo-mark">BO</div>
           <span>Bora Obra</span>
         </a>
-        <div class="nav-links">
-          <a href="#como-funciona">Como funciona</a>
-          <a href="#beneficios">Benefícios</a>
-          <a href="#seguranca">Segurança</a>
-        </div>
-        <a class="btn btn-primary" href="#">Baixar App</a>
+        <nav class="nav-links">
+          <a href="#">Serviços</a>
+          <a href="#">Profissionais</a>
+          <a href="#">Ajuda</a>
+        </nav>
+        <a href="#" class="btn btn-ghost-light">Entrar</a>
       </div>
     </header>
 
@@ -279,158 +260,111 @@
       <section class="hero">
         <div class="container hero-grid">
           <div data-aos="fade-right">
-            <div class="hero-badge">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              Reforma sem caos
-            </div>
+            <span class="hero-tag">Novo App Disponível</span>
             <h1 class="hero-title">
-              Sua obra organizada, do orçamento ao <span>último retoque</span>.
+              Reforma inteligente,<br>
+              <span>sem dor de cabeça.</span>
             </h1>
             <p class="hero-subtitle">
-              O marketplace que conecta você a profissionais verificados, com orçamentos padronizados e pagamento protegido.
+              Conectamos você aos melhores profissionais com a segurança que sua casa merece. Orçamentos padronizados e pagamento protegido.
             </p>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: start;">
-                <a class="btn btn-primary" href="#">Começar agora</a>
-                <a class="btn btn-ghost" href="#como-funciona">Ver como funciona</a>
-            </div>
-          </div>
-          
-          <div class="app-mockup" data-aos="fade-left">
-            <div style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Atividades Recentes</div>
             
-            <div class="stat-card">
-              <div class="stat-icon">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
-              </div>
-              <div>
-                <div style="font-weight: 600;">Pintura Sala</div>
-                <div style="font-size: 0.8rem; color: #34d399;">Concluído • R$ 450,00</div>
-              </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="#" class="btn btn-primary">
+                Baixar App
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              </a>
+              <a href="#" class="btn btn-outline-dark">Sou Profissional</a>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              </div>
-              <div>
-                <div style="font-weight: 600;">Instalação Elétrica</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted);">Aguardando Check-in</div>
-              </div>
-            </div>
-            
-            <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 12px; text-align: center; font-size: 0.85rem;">
-               <span style="color: var(--accent);">Saldo protegido:</span> O valor só é liberado após sua aprovação.
+            <div class="input-demo">
+              <span>O que você precisa consertar hoje?</span>
+              <svg width="20" height="20" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="beneficios">
-        <div class="container">
-          <div class="section-header">
-            <span class="section-label">Por que escolher</span>
-            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Reformar não precisa ser aterrorizante.</h2>
-            <p style="color: var(--text-muted);">Removemos a informalidade e o risco da equação.</p>
-          </div>
-
-          <div class="grid-3">
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
-              <div class="icon-box">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-              </div>
-              <h3>Segurança Total</h3>
-              <p>Verificamos identidade e antecedentes de todos os profissionais. Check-in via geolocalização no local.</p>
-            </div>
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon-box" style="color: #60a5fa;">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-              </div>
-              <h3>Orçamento Fechado</h3>
-              <p>Sem surpresas de "mais material" ou taxas extras. O valor é estimado pelo app antes de fechar.</p>
-            </div>
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-               <div class="icon-box" style="color: #34d399;">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div class="phone-mockup" data-aos="fade-left">
+             <div style="margin-bottom: 1rem;">
+               <h4 style="color:var(--primary); font-weight:700;">Meus Pedidos</h4>
+             </div>
+             
+             <div class="app-card">
+               <div class="icon-circle" style="background: #dbeafe; color: var(--primary);">
+                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
                </div>
-              <h3>Sem Furos</h3>
-              <p>Agenda gerenciada pela plataforma. Se houver imprevisto, o suporte atua imediatamente para repor.</p>
-            </div>
+               <div>
+                 <div style="font-weight: 600; color: var(--primary);">Pintura Interna</div>
+                 <div style="font-size: 0.8rem; color: var(--text-muted);">Agendado para amanhã</div>
+               </div>
+             </div>
+
+             <div class="app-card" style="border-color: var(--accent); background: #f5f3ff;">
+                <div class="icon-circle" style="background: var(--accent); color: #fff;">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                  <div style="font-weight: 600; color: var(--primary);">Eletricista</div>
+                  <div style="font-size: 0.8rem; color: var(--accent); font-weight: 600;">Profissional a caminho</div>
+                </div>
+             </div>
+
+             <div style="margin-top:1.5rem; background: var(--primary); color:white; padding:1rem; border-radius:12px; text-align:center;">
+                Confirmar Pagamento
+             </div>
           </div>
         </div>
       </section>
 
-      <section id="como-funciona" style="background: rgba(0,0,0,0.2);">
+      <section style="background: var(--surface);">
         <div class="container">
-           <div class="section-header" style="margin: 0 auto 3rem; text-align: center;">
-            <span class="section-label">Fluxo Simples</span>
-            <h2 style="font-size: 2rem;">Do pedido à entrega</h2>
-          </div>
+          <h2 class="section-title">Segurança é a nossa base.</h2>
+          <p class="section-desc">Construímos uma plataforma pensada para eliminar os riscos comuns de obras e pequenas reformas.</p>
           
-          <div class="steps-grid">
-            <div class="step-card" data-aos="zoom-in" data-aos-delay="0">
-              <div class="step-number">01</div>
-              <h3>O que precisa?</h3>
-              <p>Selecione o serviço (Pintura, Elétrica, etc).</p>
+          <div class="grid-3">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="feature-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <h3>Profissionais Verificados</h3>
+              <p>Checagem rigorosa de antecedentes e avaliação técnica antes de entrar na plataforma.</p>
             </div>
-            <div class="step-card" data-aos="zoom-in" data-aos-delay="100">
-              <div class="step-number">02</div>
-              <h3>Valor Estimado</h3>
-              <p>O app calcula o preço médio de mercado.</p>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="feature-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              </div>
+              <h3>Pagamento Seguro</h3>
+              <p>Seu dinheiro fica retido e só é liberado ao profissional após a conclusão e sua aprovação.</p>
             </div>
-            <div class="step-card" data-aos="zoom-in" data-aos-delay="200">
-              <div class="step-number">03</div>
-              <h3>Match</h3>
-              <p>Escolha o profissional pelo perfil e avaliação.</p>
-            </div>
-            <div class="step-card" data-aos="zoom-in" data-aos-delay="300">
-              <div class="step-number">04</div>
-              <h3>Pagamento</h3>
-              <p>Só libera dinheiro após o serviço feito.</p>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="feature-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <h3>Suporte Rápido</h3>
+              <p>Time de atendimento pronto para resolver imprevistos e garantir que a obra não pare.</p>
             </div>
           </div>
         </div>
       </section>
-
-      <section>
-        <div class="container">
-           <h2 style="margin-bottom: 2rem; font-size: 1.8rem;">Dúvidas rápidas</h2>
-           <div class="faq-grid">
-             <div class="faq-item">
-               <h3>É uma empreiteira?</h3>
-               <p>Não. Somos uma plataforma de tecnologia que conecta você a profissionais autônomos com curadoria.</p>
-             </div>
-             <div class="faq-item">
-               <h3>Como funciona o pagamento?</h3>
-               <p>Você paga para a plataforma. O dinheiro fica retido e só vai para o profissional quando você confirmar que o serviço foi feito.</p>
-             </div>
-             <div class="faq-item">
-               <h3>E se o profissional estragar algo?</h3>
-               <p>Temos um seguro garantia para danos materiais causados durante a prestação do serviço cadastrado.</p>
-             </div>
-             <div class="faq-item">
-               <h3>Atendem quais cidades?</h3>
-               <p>Atualmente estamos em fase de expansão nas capitais do Sudeste.</p>
-             </div>
-           </div>
-        </div>
-      </section>
-
     </main>
 
     <footer>
       <div class="container">
-        <p>© 2024 Bora Obra. Construindo confiança.</p>
+        <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+          <span style="opacity: 0.8;">BO</span> Bora Obra
+        </div>
+        <p class="footer-text">
+          &copy; 2024 Bora Obra Tecnologia Ltda.<br>
+          Feito com Flutter Theme Style.
+        </p>
       </div>
     </footer>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 50
-    });
+    AOS.init({ duration: 800, once: true });
   </script>
 </body>
 </html>
